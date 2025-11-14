@@ -7,13 +7,13 @@ print(f"Using {device} device")
 X = torch.rand(1, 28, 28, device=device)
 
 model = SequentialBlock(
-                nn.Flatten(),
-                nn.Linear(28*28, 512),
-                nn.ReLU(),
-                nn.Linear(512, 512),
-                nn.ReLU(),
-                nn.Linear(512, 10),
-                nn.Softmax(dim=1)
+        nn.Flatten(),
+        nn.Linear(28*28, 512),
+        nn.ReLU(),
+        nn.Linear(512, 512),
+        nn.ReLU(),
+        nn.Linear(512, 10),
+        nn.Softmax(dim=1)
         )
 model.to(device)
 logits = model(X)
