@@ -1,0 +1,119 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "BlockForge"
+version = "0.1.0"
+description = "A modular building block library for neural networks."
+authors = [
+    { name = "DataOpsFusion", email = "tad9277@gmail.com" },
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    # https://pypi.org/classifiers/
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords = ["neural-networks", "deep-learning", "pytorch", "transformers", "ssm"]
+
+dependencies = [
+    "filelock==3.19.1",
+    "fsspec==2025.9.0",
+    "Jinja2==3.1.6",
+    "MarkupSafe==2.1.5",
+    "mpmath==1.3.0",
+    "networkx==3.5",
+    "numpy==2.3.3",
+    "nvidia-cublas==13.0.0.19",
+    "nvidia-cuda-cupti==13.0.48",
+    "nvidia-cuda-nvrtc==13.0.48",
+    "nvidia-cuda-runtime==13.0.48",
+    "nvidia-cudnn-cu13==9.13.0.50",
+    "nvidia-cufft==12.0.0.15",
+    "nvidia-cufile==1.15.0.42",
+    "nvidia-curand==10.4.0.35",
+    "nvidia-cusolver==12.0.3.29",
+    "nvidia-cusparse==12.6.2.49",
+    "nvidia-cusparselt-cu13==0.8.0",
+    "nvidia-nccl-cu13==2.27.7",
+    "nvidia-nvjitlink==13.0.39",
+    "nvidia-nvshmem-cu13==3.3.24",
+    "nvidia-nvtx==13.0.39",
+    "pillow==11.3.0",
+    "setuptools==70.2.0",
+    "sympy==1.14.0",
+    "torch==2.9.1+cu130",
+    "torchvision==0.24.1+cu130",
+    "triton==3.5.1",
+    "typing_extensions==4.15.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/DataOpsFusion/BlockForge.git"
+"Repository" = "https://github.com/DataOpsFusion/BlockForge.git"
+
+[project.optional-dependencies]
+# These are "extra" dependencies for development, testing, etc.
+# Install them with: pip install -e ".[dev]"
+dev = [
+    "pytest",  # For running tests
+    "ruff",    # All-in-one linter, formatter, and importer sorter
+    "mypy",    # For static type checking
+]
+
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+# Exclude tests from the main build
+exclude = ["tests*", "examples*"]
+
+
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = ["tests"]
+
+addopts = "-ra -q"
+
+[tool.ruff]
+# Configures the Ruff linter (https://docs.astral.sh/ruff/)
+line-length = 88
+# Enable standard linting rules:
+# E, W: pycodestyle errors and warnings
+# F: Pyflakes (logic errors)
+# I: isort (import sorting)
+# UP: pyupgrade (modernize code)
+select = ["E", "W", "F", "I", "UP"]
+ignore = []
+
+# Assume Python 3.8+
+target-version = "py38"
+
+[tool.ruff.format]
+# Configures the Ruff formatter (like Black)
+quote-style = "double"
+skip-magic-trailing-comma = false
+
+[tool.mypy]
+# Configures the Mypy type checker
+python_version = "3.8"
+strict = true
+# Allow using libraries that don't have type hints
+ignore_missing_imports = true
