@@ -3,35 +3,7 @@ import torch.nn as nn
 from basic import ResidualBlock, Block, SequentialBlock
 from typing import Sequence
 
-class _ResBlock(Block):
-    def __init__(self, in_ch: int, out_ch: int, stride: int = 1, core: Block | None = None) -> None:
-        super().__init__()
 
-        if core is None:
-            core = SequentialBlock(
-                nn.Conv2d(in_ch, out_ch, 3, stride=stride, padding=1, bias=False),
-                nn.BatchNorm2d(out_ch),
-                nn.ReLU(inplace=True),
-                nn.Conv2d(out_ch, out_ch, 3, stride=1, padding=1, bias=False),
-                nn.BatchNorm2d(out_ch),
-            )
-        self.core = core
-
-        self.skip: nn.Module | None = None
-        if stride != 1 or in_ch != out_ch:
-            self.skip = nn.Sequential(
-                nn.Conv2d(in_ch, out_ch, kernel_size=1, stride=stride, bias=False),
-                nn.BatchNorm2d(out_ch),
-            )
-
-    def forward(self, x: Tensor) -> Tensor:
-        identity = x
-        out = self.core(x)
-        if self.skip is not None:
-            identity = self.skip(x)
-        out = out + identity
-        return nn.functional.relu(out)
-    
 class ResNet(Block):
     def __init__(
         self,
