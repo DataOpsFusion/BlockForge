@@ -1,6 +1,6 @@
 venv/
 *.pyc
 *.egg-info/
-data/*
+dataset/*
 
 *.ckpt
